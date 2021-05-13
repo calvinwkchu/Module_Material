@@ -1,0 +1,35 @@
+---
+title: "Similar"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+# Note: Need to read in the data with `tidyverse` as that is the only way to make it availabe when knitting R markdown to HTML
+library(tidyverse)
+zillow_oc_2017 <- read_csv(file="../../02-Evr_Read_CSV/Resources/zillow_orange_county_2017.csv")
+```
+
+### Create a function to filter based upon number of beds, bathrooms, car count, and finished square feet
+
+```{r}
+similar_homes <- function(data, bed, bth, car, fin_sqft){
+
+  filtered_data <- data[deframe(data['bedroomcnt']) == bed & 
+                          deframe(data['bathroomcnt']) == bth & 
+                          deframe(data['garagecarcnt']) == car & 
+                          deframe(data['finishedsquarefeet']) >= (fin_sqft - 100) & 
+                          deframe(data['finishedsquarefeet']) <= (fin_sqft + 100),] 
+
+  return (filtered_data)
+}
+```
+
+### Use the function to identify 3 bedroom, 2 bathroom, & 3 car garage homes 
+
+```{r}
+zillow_oc_3bd_2ba_3car_2ksqft <- similar_homes(zillow_oc_2017, 3, 2, 3, 2000)
+```

@@ -1,0 +1,20 @@
+---
+title: "Read_CSV"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Import the tidyverse library
+
+```{r}
+library(tidyverse)
+```
+
+### The read_csv() function imports our dataset as a data table
+
+```{r}
+zillow_oc_2017 <- read_csv(file="../Resources/zillow_orange_county_2017.csv")
+```

@@ -1,0 +1,26 @@
+---
+title: "Select"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+# Note: Need to read in the data with `tidyverse` as that is the only way to make it availabe when knitting R markdown to HTML
+library(tidyverse)
+zillow_oc_2017 <- read_csv(file="../../02-Evr_Read_CSV/Resources/zillow_orange_county_2017.csv")
+```
+
+### Select columns as a character vector
+
+```{r}
+home_features <- zillow_oc_2017[,c('bathroomcnt', 'bedroomcnt', 'finishedsquarefeet', 'garagecarcnt', 'lotsizesquarefeet', 'regionidzip', 'yearbuilt', 'taxvaluedollarcnt', 'homevalue')]
+```
+
+### Filter for homes built since 2010
+
+```{r}
+homes_built_after_2010 <- home_features[deframe(home_features['yearbuilt']) > 2010,] 
+```

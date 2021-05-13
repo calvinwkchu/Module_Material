@@ -1,0 +1,34 @@
+---
+title: "Correlation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+# Note: Need to read in the data with `tidyverse` as that is the only way to make it availabe when knitting R markdown to HTML
+library(tidyverse)
+zillow_oc_2017 <- read_csv(file="../../02-Evr_Read_CSV/Resources/zillow_orange_county_2017.csv")
+```
+
+### Create a scatter plot of finished square feet by home value
+
+```{r}
+plt <- ggplot(zillow_oc_2017,aes(x=finishedsquarefeet,y=homevalue))
+plt + geom_point()
+```
+
+### Calculate the Pearson Correlation Coefficient
+
+```{r}
+cor(zillow_oc_2017["finishedsquarefeet"],zillow_oc_2017["homevalue"]) 
+```
+
+### Create a matrix calculating the correlation between multiple fields
+
+```{r}
+home_matrix <- as.matrix(zillow_oc_2017[,c("finishedsquarefeet","taxvaluedollarcnt","homevalue")]) 
+cor(home_matrix)
+```
